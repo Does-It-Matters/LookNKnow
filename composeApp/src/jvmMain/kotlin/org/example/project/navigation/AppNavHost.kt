@@ -36,11 +36,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.ui.components.PrimaryButton
 import org.example.project.ui.screens.ArticleScreen
+import org.example.project.ui.screens.CanvasScreen
 import org.example.project.ui.screens.HomeScreen
 
 @Composable
 fun AppNavHost() {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.Article) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Canvas) }
     Scaffold(
         topBar = {
             AppTopBar(
@@ -60,7 +61,7 @@ fun AppNavHost() {
             when (val screen = currentScreen) {
                 is Screen.Home -> HomeScreen()
                 Screen.Article -> ArticleScreen()
-                Screen.Canvas -> TODO()
+                Screen.Canvas -> CanvasScreen()
             }
         }
     }
