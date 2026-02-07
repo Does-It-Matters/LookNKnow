@@ -44,7 +44,7 @@ fun ParagraphCard(
             Spacer(Modifier.height(8.dp))
 
             // 이미지 경로가 있으면 이미지를 표현
-            println(paragraph.imageUri)
+            println("문단 이미지 ${paragraph.imageUri}")
             paragraph.imageUri?.let { path ->
                 val imageBitmap: ImageBitmap? = remember(path) {
                     runCatching {
@@ -73,7 +73,7 @@ fun ParagraphCard(
                         println("Desktop 파일 선택, 데이터베이스에 저장, 데이터베이스에 저장된 이미지 표현")
                     }
                 ) {
-                    Text("이미지 선택 (선택)")
+                    Text("이미지 선택")
                 }
             }
 
