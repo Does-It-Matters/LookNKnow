@@ -4,6 +4,10 @@
 
 ## LookNKnow
 - 스마트 글래스와 검색 증강 생성(RAG), 이미지 인식이 결합된 미래 세상을 준비
+
+## KMP 프로젝트 README 내용 
+Parts of this README are based on the official Kotlin Multiplatform project template.
+
   This is a Kotlin Multiplatform project targeting Android, Web, Desktop (JVM), Server.
 
 * [/composeApp](./composeApp/src) is for code that will be shared across your Compose Multiplatform applications.
