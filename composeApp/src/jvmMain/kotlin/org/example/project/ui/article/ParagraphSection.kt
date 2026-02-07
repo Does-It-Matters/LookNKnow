@@ -1,6 +1,5 @@
 package org.example.project.ui.article
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,13 +11,10 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import org.example.project.model.Paragraph
-import org.jetbrains.compose.resources.decodeToImageBitmap
-import java.io.FileInputStream
+import org.example.project.ui.util.DesktopImage
 
 @Composable
 fun ParagraphCard(
@@ -46,28 +42,13 @@ fun ParagraphCard(
             // 이미지 경로가 있으면 이미지를 표현
             println("문단 이미지 ${paragraph.imageUri}")
             paragraph.imageUri?.let { path ->
-                val imageBitmap: ImageBitmap? = remember(path) {
-                    runCatching {
-                        FileInputStream(path).use {
-                            it.readAllBytes().decodeToImageBitmap()
-                        }
-                    }.getOrNull()
-                }
-
-                imageBitmap?.let {
-                    Image(
-                        bitmap = it,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(160.dp)
-                    )
-
-                    Spacer(Modifier.height(8.dp))
-                }
-            }
-
-            if (paragraph.imageUri == null) {
+                DesktopImage(
+                    imagePath = path,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(160.dp)
+                )
+            } ?: run {
                 Button(
                     onClick = {
                         println("Desktop 파일 선택, 데이터베이스에 저장, 데이터베이스에 저장된 이미지 표현")
