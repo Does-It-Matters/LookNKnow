@@ -35,11 +35,12 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.ui.components.PrimaryButton
+import org.example.project.ui.screens.ArticleScreen
 import org.example.project.ui.screens.HomeScreen
 
 @Composable
 fun AppNavHost() {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.Home) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Article) }
     Scaffold(
         topBar = {
             AppTopBar(
@@ -58,7 +59,7 @@ fun AppNavHost() {
             LeftHoverPanel()
             when (val screen = currentScreen) {
                 is Screen.Home -> HomeScreen()
-                Screen.Article -> TODO()
+                Screen.Article -> ArticleScreen()
                 Screen.Canvas -> TODO()
             }
         }
