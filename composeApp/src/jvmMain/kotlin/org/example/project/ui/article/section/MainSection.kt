@@ -1,6 +1,7 @@
 package org.example.project.ui.article.section
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -15,6 +16,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.project.ui.util.DesktopImage
+
+@Composable
+fun ArticleHeaderSection(
+    title: String,
+    onTitleChange: (String) -> Unit,
+    imagePath: String?,
+    onImageSelected: (String?) -> Unit
+) {
+    Column {
+        MainTitleCard(title = title, onTitleChange = onTitleChange)
+        Spacer(Modifier.height(16.dp))
+        MainImageSection(imagePath = imagePath, onImageSelected = onImageSelected)
+    }
+}
+
+
 
 // Article 제목
 @Composable

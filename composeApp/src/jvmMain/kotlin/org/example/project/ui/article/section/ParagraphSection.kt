@@ -17,6 +17,27 @@ import org.example.project.model.Paragraph
 import org.example.project.ui.util.DesktopImage
 
 @Composable
+fun ArticleBodySection(
+    paragraphs: List<Paragraph>,
+    onParagraphUpdate: (Int, Paragraph) -> Unit,
+    onAddParagraph: () -> Unit
+) {
+    Column {
+        paragraphs.forEachIndexed { index, paragraph ->
+            ParagraphCard(
+                paragraph = paragraph,
+                onUpdate = { updated -> onParagraphUpdate(index, updated) }
+            )
+            Spacer(Modifier.height(8.dp)) // 문단 간 간격
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        AddParagraphButton(onClick = onAddParagraph)
+    }
+}
+
+@Composable
 fun ParagraphCard(
     paragraph: Paragraph,
     onUpdate: (Paragraph) -> Unit

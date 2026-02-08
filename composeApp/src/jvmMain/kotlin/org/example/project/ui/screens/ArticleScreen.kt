@@ -9,10 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.project.model.Paragraph
-import org.example.project.ui.article.section.AddParagraphButton
-import org.example.project.ui.article.section.MainImageSection
-import org.example.project.ui.article.section.MainTitleCard
-import org.example.project.ui.article.section.ParagraphCard
+import org.example.project.ui.article.section.ArticleBodySection
+import org.example.project.ui.article.section.ArticleHeaderSection
 
 fun fakeParagraphs() = listOf(
     Paragraph(
@@ -71,40 +69,5 @@ fun ArticleScreen(
 
             Spacer(Modifier.height(32.dp))
         }
-    }
-}
-
-@Composable
-fun ArticleHeaderSection(
-    title: String,
-    onTitleChange: (String) -> Unit,
-    imagePath: String?,
-    onImageSelected: (String?) -> Unit
-) {
-    Column {
-        MainTitleCard(title = title, onTitleChange = onTitleChange)
-        Spacer(Modifier.height(16.dp))
-        MainImageSection(imagePath = imagePath, onImageSelected = onImageSelected)
-    }
-}
-
-@Composable
-fun ArticleBodySection(
-    paragraphs: List<Paragraph>,
-    onParagraphUpdate: (Int, Paragraph) -> Unit,
-    onAddParagraph: () -> Unit
-) {
-    Column {
-        paragraphs.forEachIndexed { index, paragraph ->
-            ParagraphCard(
-                paragraph = paragraph,
-                onUpdate = { updated -> onParagraphUpdate(index, updated) }
-            )
-            Spacer(Modifier.height(8.dp)) // 문단 간 간격
-        }
-
-        Spacer(Modifier.height(16.dp))
-
-        AddParagraphButton(onClick = onAddParagraph)
     }
 }
