@@ -25,15 +25,14 @@ fun fakeParagraphs() = listOf(
 )
 
 @Composable
-fun ArticleScreen() {
-    // Screen State
+fun ArticleScreen(
+    // ViewModel 주입
+) {
+    // 상태
     var title by remember { mutableStateOf("제목") }
     var mainImagePath by remember { mutableStateOf<String?>(null) }
-    var paragraphs by remember {
-        mutableStateOf(fakeParagraphs())
-    }
+    var paragraphs by remember { mutableStateOf(fakeParagraphs()) }
 
-    // UI 구성
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -43,53 +42,69 @@ fun ArticleScreen() {
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp)
         ) {
-
-            /* 제목 */
-            MainTitleCard(
+            // 1. 메인 섹션 (제목 + 이미지)
+            ArticleHeaderSection(
                 title = title,
-                onTitleChange = { title = it }
-            )
-
-            Spacer(Modifier.height(16.dp))
-
-            /* 메인 이미지 */
-            MainImageSection(
+                onTitleChange = { title = it },
                 imagePath = mainImagePath,
-                onImageSelected = { path ->
-                    mainImagePath = path
-                }
+                onImageSelected = { mainImagePath = it }
             )
 
             Spacer(Modifier.height(24.dp))
 
-            /* 문단 */
-            paragraphs.forEachIndexed { index, paragraph ->
-                ParagraphCard(
-                    paragraph = paragraph,
-                    onUpdate = { updated ->
-                        paragraphs = paragraphs.toMutableList().also {
-                            it[index] = updated
-                        }
-                    }
-                )
-            }
-
-            Spacer(Modifier.height(16.dp))
-
-            /* 문단 추가 */
-            AddParagraphButton(
-                onClick = {
+            // 2. 문단 섹션 (문단 리스트 + 추가 버튼)
+            ArticleBodySection(
+                paragraphs = paragraphs,
+                onParagraphUpdate = { index, updated ->
+                    paragraphs = paragraphs.toMutableList().apply { this[index] = updated }
+                },
+                onAddParagraph = {
                     paragraphs = paragraphs + Paragraph(
                         id = System.currentTimeMillis(),
-                        1,
-                        subTitle = title,
+                        order = paragraphs.size + 1,
+                        subTitle = "",
                         imageUri = null,
-                        text = "text"
+                        text = ""
                     )
                 }
             )
 
             Spacer(Modifier.height(32.dp))
         }
+    }
+}
+
+@Composable
+fun ArticleHeaderSection(
+    title: String,
+    onTitleChange: (String) -> Unit,
+    imagePath: String?,
+    onImageSelected: (String?) -> Unit
+) {
+    Column {
+        MainTitleCard(title = title, onTitleChange = onTitleChange)
+        Spacer(Modifier.height(16.dp))
+        MainImageSection(imagePath = imagePath, onImageSelected = onImageSelected)
+    }
+}
+
+@Composable
+fun ArticleBodySection(
+    paragraphs: List<Paragraph>,
+    onParagraphUpdate: (Int, Paragraph) -> Unit,
+    onAddParagraph: () -> Unit
+) {
+    Column {
+        paragraphs.forEachIndexed { index, paragraph ->
+            ParagraphCard(
+                paragraph = paragraph,
+                onUpdate = { updated -> onParagraphUpdate(index, updated) }
+            )
+            Spacer(Modifier.height(8.dp)) // 문단 간 간격
+        }
+
+        Spacer(Modifier.height(16.dp))
+
+        AddParagraphButton(onClick = onAddParagraph)
     }
 }

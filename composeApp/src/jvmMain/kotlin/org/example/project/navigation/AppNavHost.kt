@@ -41,7 +41,7 @@ import org.example.project.ui.screens.HomeScreen
 
 @Composable
 fun AppNavHost() {
-    var currentScreen by remember { mutableStateOf<Screen>(Screen.Canvas) }
+    var currentScreen by remember { mutableStateOf<Screen>(Screen.Article) }
     Scaffold(
         topBar = {
             AppTopBar(
