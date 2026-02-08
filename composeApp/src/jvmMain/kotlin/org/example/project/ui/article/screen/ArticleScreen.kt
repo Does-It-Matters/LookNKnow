@@ -1,4 +1,4 @@
-package org.example.project.ui.screens
+package org.example.project.ui.article.screen
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -9,10 +9,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.example.project.model.Paragraph
-import org.example.project.ui.article.AddParagraphButton
-import org.example.project.ui.article.MainImageSection
-import org.example.project.ui.article.MainTitleCard
-import org.example.project.ui.article.ParagraphCard
+import org.example.project.ui.article.section.AddParagraphButton
+import org.example.project.ui.article.section.MainImageSection
+import org.example.project.ui.article.section.MainTitleCard
+import org.example.project.ui.article.section.ParagraphCard
 
 @Composable
 fun ArticleScreen() {

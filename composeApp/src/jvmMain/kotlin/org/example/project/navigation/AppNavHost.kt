@@ -35,7 +35,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.ui.components.PrimaryButton
-import org.example.project.ui.screens.ArticleScreen
+import org.example.project.ui.article.screen.ArticleScreen
 import org.example.project.ui.screens.CanvasScreen
 import org.example.project.ui.screens.HomeScreen
 

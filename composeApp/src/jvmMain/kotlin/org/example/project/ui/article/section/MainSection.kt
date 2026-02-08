@@ -1,4 +1,4 @@
-package org.example.project.ui.article
+package org.example.project.ui.article.section
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
