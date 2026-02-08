@@ -50,9 +50,7 @@ fun MainImageSection(
                     .fillMaxWidth()
                     .height(200.dp)
             )
-        }
-
-        if (imagePath == null) {
+        } ?: run {
             Button(
                 onClick = {
                     println("여기서 이미지를 선택하여 해당 파일 경로명을 전달")
