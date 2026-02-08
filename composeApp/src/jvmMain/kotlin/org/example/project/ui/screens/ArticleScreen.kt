@@ -14,23 +14,23 @@ import org.example.project.ui.article.section.MainImageSection
 import org.example.project.ui.article.section.MainTitleCard
 import org.example.project.ui.article.section.ParagraphCard
 
+fun fakeParagraphs() = listOf(
+    Paragraph(
+        id = System.currentTimeMillis(),
+        order = 1,
+        subTitle = "문단 제목",
+        imageUri = null,
+        text = "단락 내용"
+    )
+)
+
 @Composable
 fun ArticleScreen() {
     // Screen State
     var title by remember { mutableStateOf("제목") }
     var mainImagePath by remember { mutableStateOf<String?>(null) }
     var paragraphs by remember {
-        mutableStateOf(
-            listOf(
-                Paragraph(
-                    id = System.currentTimeMillis(),
-                    order = 1,
-                    subTitle = "문단 제목",
-                    imageUri = null,
-                    text = "단락 내용"
-                )
-            )
-        )
+        mutableStateOf(fakeParagraphs())
     }
 
     // UI 구성
