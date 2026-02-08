@@ -57,12 +57,12 @@ class ArticleViewModel {
 
 @Composable
 fun ArticleScreen(
-    // ViewModel 주입
+    viewModel: ArticleViewModel
 ) {
     // 상태
-    var title by remember { mutableStateOf("제목") }
-    var mainImagePath by remember { mutableStateOf<String?>(null) }
-    var paragraphs by remember { mutableStateOf(fakeParagraphs()) }
+    val title by viewModel.title.collectAsState()
+    val mainImagePath by viewModel.mainImagePath.collectAsState()
+    val paragraphs by viewModel.paragraphs.collectAsState()
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -76,9 +76,9 @@ fun ArticleScreen(
             // 1. 메인 섹션 (제목 + 이미지)
             ArticleHeaderSection(
                 title = title,
-                onTitleChange = { title = it },
+                onTitleChange = viewModel::updateTitle,
                 imagePath = mainImagePath,
-                onImageSelected = { mainImagePath = it }
+                onImageSelected = viewModel::updateMainImage,
             )
 
             Spacer(Modifier.height(24.dp))
@@ -86,18 +86,8 @@ fun ArticleScreen(
             // 2. 문단 섹션 (문단 리스트 + 추가 버튼)
             ArticleBodySection(
                 paragraphs = paragraphs,
-                onParagraphUpdate = { index, updated ->
-                    paragraphs = paragraphs.toMutableList().apply { this[index] = updated }
-                },
-                onAddParagraph = {
-                    paragraphs = paragraphs + Paragraph(
-                        id = System.currentTimeMillis(),
-                        order = paragraphs.size + 1,
-                        subTitle = "",
-                        imageUri = null,
-                        text = ""
-                    )
-                }
+                onParagraphUpdate = viewModel::updateParagraph,
+                onAddParagraph = viewModel::addParagraph
             )
 
             Spacer(Modifier.height(32.dp))

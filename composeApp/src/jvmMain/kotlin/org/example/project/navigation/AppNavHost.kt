@@ -36,12 +36,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.example.project.ui.components.PrimaryButton
 import org.example.project.ui.screens.ArticleScreen
+import org.example.project.ui.screens.ArticleViewModel
 import org.example.project.ui.screens.CanvasScreen
 import org.example.project.ui.screens.HomeScreen
 
 @Composable
 fun AppNavHost() {
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Article) }
+    val articleViewModel = remember { ArticleViewModel() }
+
     Scaffold(
         topBar = {
             AppTopBar(
@@ -60,7 +63,7 @@ fun AppNavHost() {
             LeftHoverPanel()
             when (val screen = currentScreen) {
                 is Screen.Home -> HomeScreen()
-                Screen.Article -> ArticleScreen()
+                Screen.Article -> ArticleScreen(articleViewModel)
                 Screen.Canvas -> CanvasScreen()
             }
         }
