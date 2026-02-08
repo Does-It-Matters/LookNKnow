@@ -8,6 +8,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import org.example.project.model.Paragraph
 import org.example.project.ui.article.section.ArticleBodySection
 import org.example.project.ui.article.section.ArticleHeaderSection
@@ -21,6 +25,35 @@ fun fakeParagraphs() = listOf(
         text = "단락 내용"
     )
 )
+
+class ArticleViewModel {
+    private val _title: MutableStateFlow<String> = MutableStateFlow("제목")
+    private val _mainImagePath: MutableStateFlow<String?> = MutableStateFlow(null)
+    private val _paragraphs: MutableStateFlow<List<Paragraph>> = MutableStateFlow(emptyList())
+
+    val title: StateFlow<String> = _title.asStateFlow()
+    val mainImagePath: StateFlow<String?> = _mainImagePath.asStateFlow()
+    val paragraphs = _paragraphs.asStateFlow()
+
+    fun updateTitle(newTitle: String) { _title.value = newTitle }
+    fun updateMainImage(path: String?) { _mainImagePath.value = path }
+    fun updateParagraph(index: Int, updated: Paragraph) {
+        _paragraphs.update { list ->
+            list.toMutableList().apply { this[index] = updated }
+        }
+    }
+    fun addParagraph() {
+        _paragraphs.update { list ->
+            list + Paragraph(
+                id = System.currentTimeMillis(),
+                order = list.size + 1,
+                subTitle = "",
+                imageUri = null,
+                text = ""
+            )
+        }
+    }
+}
 
 @Composable
 fun ArticleScreen(
