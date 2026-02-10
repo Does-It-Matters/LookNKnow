@@ -42,9 +42,8 @@ import org.example.project.ui.screens.CanvasScreen
 import org.example.project.ui.screens.HomeScreen
 
 @Composable
-fun AppNavHost() {
+fun AppNavHost(viewModel: ArticleViewModel) {
     var currentScreen by remember { mutableStateOf<Screen>(Screen.Article) }
-    val articleViewModel = remember { ArticleViewModel() }
 
     Scaffold(
         topBar = {
@@ -64,7 +63,7 @@ fun AppNavHost() {
             LeftHoverPanel()
             when (val screen = currentScreen) {
                 is Screen.Home -> HomeScreen()
-                Screen.Article -> ArticleScreen(articleViewModel)
+                Screen.Article -> ArticleScreen(viewModel)
                 Screen.Canvas -> CanvasScreen()
             }
         }
